@@ -3,19 +3,21 @@ package com.flowforge.gateway.security;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
-import org.springframework.stereotype.Component;
-
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 @Component
 public class JwtUtil {
 
-    // MUST MATCH auth-service secret
-    private final Key key = Keys.hmacShaKeyFor(
-            "very-secret-key-change-this-later-123456".getBytes()
-    );
+    private final Key key;
 
-    public Claims validateToken(String token) {
+    public JwtUtil(@Value("${jwt.secret}") String secret) {
+        this.key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
+    }
+
+    public Claims extractClaims(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(key)
                 .build()

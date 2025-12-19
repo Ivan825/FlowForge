@@ -26,7 +26,7 @@ public class AuthService {
             throw new RuntimeException("Organization already exists");
         }
 
-        Organization organization = organizationRepository.save(
+        Organization org = organizationRepository.save(
                 Organization.builder()
                         .name(request.getOrganizationName())
                         .build()
@@ -36,7 +36,7 @@ public class AuthService {
                 UserCredentials.builder()
                         .email(request.getAdminEmail())
                         .passwordHash(passwordEncoder.encode(request.getPassword()))
-                        .organizationId(organization.getId())
+                        .organizationId(org.getId().toString())
                         .roleId("ADMIN")
                         .build()
         );
@@ -52,7 +52,7 @@ public class AuthService {
         }
 
         return jwtUtil.generateToken(
-                user.getId(),
+                user.getId().toString(),
                 user.getOrganizationId(),
                 user.getRoleId()
         );

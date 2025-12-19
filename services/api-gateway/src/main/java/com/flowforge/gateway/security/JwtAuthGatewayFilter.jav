@@ -1,30 +1,33 @@
-package com.flowforge.gateway.security;
+package com.flowforge.gateway.filter;
 
+import com.flowforge.gateway.security.JwtUtil;
 import io.jsonwebtoken.Claims;
+import lombok.RequiredArgsConstructor;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
 
 @Component
-public class JwtAuthGatewayFilter
-        extends AbstractGatewayFilterFactory<JwtAuthGatewayFilter.Config> {
+@RequiredArgsConstructor
+public class JwtAuthGatewayFilterFactory
+        extends AbstractGatewayFilterFactory<JwtAuthGatewayFilterFactory.Config> {
 
     private final JwtUtil jwtUtil;
 
-    public JwtAuthGatewayFilter(JwtUtil jwtUtil) {
+    public JwtAuthGatewayFilterFactory() {
         super(Config.class);
-        this.jwtUtil = jwtUtil;
     }
 
     @Override
     public GatewayFilter apply(Config config) {
-
         return (exchange, chain) -> {
 
-            String authHeader =
-                    exchange.getRequest().getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
+            String authHeader = exchange.getRequest()
+                    .getHeaders()
+                    .getFirst(HttpHeaders.AUTHORIZATION);
 
             if (authHeader == null || !authHeader.startsWith("Bearer ")) {
                 exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
@@ -34,26 +37,24 @@ public class JwtAuthGatewayFilter
             String token = authHeader.substring(7);
 
             try {
-                Claims claims = jwtUtil.validateToken(token);
+                Claims claims = jwtUtil.extractClaims(token);
 
-                exchange = exchange.mutate()
-                        .request(
-                                exchange.getRequest().mutate()
-                                        .header("X-User-Id", claims.getSubject())
-                                        .header("X-Org-Id", claims.get("orgId").toString())
-                                        .header("X-Role-Id", claims.get("roleId").toString())
-                                        .build()
-                        )
+                ServerHttpRequest mutatedRequest = exchange.getRequest()
+                        .mutate()
+                        .header("X-User-Id", claims.getSubject())
+                        .header("X-Org-Id", claims.get("orgId", String.class))
+                        .header("X-Role", claims.get("roleId", String.class))
                         .build();
+
+                return chain.filter(exchange.mutate().request(mutatedRequest).build());
 
             } catch (Exception e) {
                 exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
                 return exchange.getResponse().setComplete();
             }
-
-            return chain.filter(exchange);
         };
     }
 
-    public static class Config {}
+    public static class Config {
+    }
 }

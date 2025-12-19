@@ -17,12 +17,11 @@ public class AuthController {
     @PostMapping("/register")
     public String register(@RequestBody RegisterRequest request) {
         authService.register(request);
-        return "Organization registered successfully";
+        return "Registered";
     }
 
     @PostMapping("/login")
     public LoginResponse login(@RequestBody LoginRequest request) {
-        String token = authService.login(request);
-        return new LoginResponse(token);
+        return new LoginResponse(authService.login(request));
     }
 }

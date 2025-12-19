@@ -1,4 +1,3 @@
 /Users/ivanbhargava/projects/FlowForge/services/api-gateway/src/main/java/com/flowforge/gateway/ApiGatewayApplication.java
-/Users/ivanbhargava/projects/FlowForge/services/api-gateway/src/main/java/com/flowforge/gateway/config/SecurityConfig.java
-/Users/ivanbhargava/projects/FlowForge/services/api-gateway/src/main/java/com/flowforge/gateway/filter/JwtAuthGatewayFilterFactory.java
+/Users/ivanbhargava/projects/FlowForge/services/api-gateway/src/main/java/com/flowforge/gateway/filter/JwtAuthGlobalFilter.java
 /Users/ivanbhargava/projects/FlowForge/services/api-gateway/src/main/java/com/flowforge/gateway/security/JwtUtil.java
