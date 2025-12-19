@@ -1,0 +1,12 @@
+com/flowforge/auth/dto/RegisterRequest.class
+com/flowforge/auth/AuthServiceApplication.class
+com/flowforge/auth/entity/UserCredentials.class
+com/flowforge/auth/controller/HealthController.class
+com/flowforge/auth/controller/AuthController.class
+com/flowforge/auth/entity/Organization$OrganizationBuilder.class
+com/flowforge/auth/repository/UserRepository.class
+com/flowforge/auth/service/AuthService.class
+com/flowforge/auth/entity/UserCredentials$UserCredentialsBuilder.class
+com/flowforge/auth/repository/OrganizationRepository.class
+com/flowforge/auth/entity/Organization.class
+com/flowforge/auth/config/SecurityConfig.class
