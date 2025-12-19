@@ -2,9 +2,12 @@
 /Users/ivanbhargava/projects/FlowForge/services/auth-service/src/main/java/com/flowforge/auth/config/SecurityConfig.java
 /Users/ivanbhargava/projects/FlowForge/services/auth-service/src/main/java/com/flowforge/auth/controller/AuthController.java
 /Users/ivanbhargava/projects/FlowForge/services/auth-service/src/main/java/com/flowforge/auth/controller/HealthController.java
+/Users/ivanbhargava/projects/FlowForge/services/auth-service/src/main/java/com/flowforge/auth/dto/LoginRequest.java
+/Users/ivanbhargava/projects/FlowForge/services/auth-service/src/main/java/com/flowforge/auth/dto/LoginResponse.java
 /Users/ivanbhargava/projects/FlowForge/services/auth-service/src/main/java/com/flowforge/auth/dto/RegisterRequest.java
 /Users/ivanbhargava/projects/FlowForge/services/auth-service/src/main/java/com/flowforge/auth/entity/Organization.java
 /Users/ivanbhargava/projects/FlowForge/services/auth-service/src/main/java/com/flowforge/auth/entity/UserCredentials.java
 /Users/ivanbhargava/projects/FlowForge/services/auth-service/src/main/java/com/flowforge/auth/repository/OrganizationRepository.java
 /Users/ivanbhargava/projects/FlowForge/services/auth-service/src/main/java/com/flowforge/auth/repository/UserRepository.java
+/Users/ivanbhargava/projects/FlowForge/services/auth-service/src/main/java/com/flowforge/auth/security/JwtUtil.java
 /Users/ivanbhargava/projects/FlowForge/services/auth-service/src/main/java/com/flowforge/auth/service/AuthService.java

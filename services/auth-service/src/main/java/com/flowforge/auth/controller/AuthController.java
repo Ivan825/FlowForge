@@ -1,5 +1,7 @@
 package com.flowforge.auth.controller;
 
+import com.flowforge.auth.dto.LoginRequest;
+import com.flowforge.auth.dto.LoginResponse;
 import com.flowforge.auth.dto.RegisterRequest;
 import com.flowforge.auth.service.AuthService;
 import lombok.RequiredArgsConstructor;
@@ -16,5 +18,11 @@ public class AuthController {
     public String register(@RequestBody RegisterRequest request) {
         authService.register(request);
         return "Organization registered successfully";
+    }
+
+    @PostMapping("/login")
+    public LoginResponse login(@RequestBody LoginRequest request) {
+        String token = authService.login(request);
+        return new LoginResponse(token);
     }
 }
