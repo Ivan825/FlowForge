@@ -1,1 +1,5 @@
+com/flowforge/gateway/filter/JwtAuthGatewayFilterFactory.class
+com/flowforge/gateway/security/JwtUtil.class
+com/flowforge/gateway/filter/JwtAuthGatewayFilterFactory$Config.class
+com/flowforge/gateway/config/SecurityConfig.class
 com/flowforge/gateway/ApiGatewayApplication.class
