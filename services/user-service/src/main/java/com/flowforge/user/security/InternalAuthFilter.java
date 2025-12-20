@@ -19,7 +19,16 @@ public class InternalAuthFilter extends OncePerRequestFilter {
             FilterChain filterChain
     ) throws ServletException, IOException {
 
-        // Just pass through – interceptor handles auth
-        filterChain.doFilter(request, response);
+        try {
+            // ✅ TRUST ONLY GATEWAY HEADERS
+            OrgContext.setOrgId(request.getHeader("X-Org-Id"));
+            RoleContext.setRole(request.getHeader("X-Role"));
+
+            filterChain.doFilter(request, response);
+        } finally {
+            // ✅ CRITICAL: prevent thread leakage
+            OrgContext.clear();
+            RoleContext.clear();
+        }
     }
 }

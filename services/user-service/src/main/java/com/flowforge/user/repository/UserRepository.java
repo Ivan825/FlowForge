@@ -1,0 +1,14 @@
+package com.flowforge.user.repository;
+
+import com.flowforge.user.entity.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
+import java.util.Optional;
+
+public interface UserRepository extends JpaRepository<User, String> {
+
+    List<User> findByOrganizationId(String organizationId);
+
+    Optional<User> findByIdAndOrganizationId(String id, String organizationId);
+}

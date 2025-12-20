@@ -13,7 +13,7 @@ public class OrgInterceptor implements HandlerInterceptor {
             HttpServletRequest request,
             HttpServletResponse response,
             Object handler
-    ) throws Exception {
+    ) {
 
         String orgId = request.getHeader("X-Org-Id");
 
@@ -22,9 +22,19 @@ public class OrgInterceptor implements HandlerInterceptor {
             return false;
         }
 
-        // 🔐 Store orgId for downstream use
-        request.setAttribute("ORG_ID", orgId);
-
+        // 🔐 Bind org to thread
+        OrgContext.setOrgId(orgId);
         return true;
+    }
+
+    @Override
+    public void afterCompletion(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            Object handler,
+            Exception ex
+    ) {
+        // 🔥 Prevent leakage across requests
+        OrgContext.clear();
     }
 }
