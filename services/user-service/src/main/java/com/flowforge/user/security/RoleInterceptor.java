@@ -13,11 +13,11 @@ public class RoleInterceptor implements HandlerInterceptor {
             HttpServletRequest request,
             HttpServletResponse response,
             Object handler
-    ) {
+    ) throws Exception {
 
         String userId = request.getHeader("X-User-Id");
-        String orgId  = OrgContext.getOrgId();
-        String role   = RoleContext.getRole();
+        String orgId  = request.getHeader("X-Org-Id");
+        String role   = request.getHeader("X-Role");
 
         System.out.println("🔐 Interceptor hit");
         System.out.println("UserId=" + userId);
@@ -30,14 +30,19 @@ public class RoleInterceptor implements HandlerInterceptor {
             return false;
         }
 
-        // 2️⃣ ADMIN-only endpoint
-        if (request.getRequestURI().equals("/users/me")) {
-            if (!RoleContext.isAdmin()) {
-                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-                return false;
-            }
+        String path = request.getRequestURI();
+        String method = request.getMethod();
+
+        // 2️⃣ ADMIN-only endpoints
+        boolean adminOnly =
+                path.equals("/users/me") ||
+                path.equals("/users");
+
+        if (adminOnly && !"ADMIN".equals(role)) {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            return false;
         }
 
-        return true;
+        return true; // allow request
     }
 }

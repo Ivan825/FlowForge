@@ -5,31 +5,38 @@ import com.flowforge.user.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
 
-    private final UserService userService;
+    private final UserService service;
 
-    public UserController(UserService userService) {
-        this.userService = userService;
+    public UserController(UserService service) {
+        this.service = service;
     }
 
+    // Existing endpoint
     @GetMapping("/me")
-    public Map<String, String> me(HttpServletRequest request) {
+    public User me(HttpServletRequest request) {
+        return service.getOrCreateUser(request);
+    }
 
-        // ✅ THIS WAS THE MISSING STEP
-        User user = userService.getOrCreateUser(request);
+    // 🆕 ADMIN: list users
+    @GetMapping
+    public List<User> listUsers() {
+        return service.listUsers();
+    }
 
-        Map<String, String> response = new HashMap<>();
-        response.put("message", "Hello from User Service");
-        response.put("userId", user.getId());
-        response.put("orgId", user.getOrganizationId());
-        response.put("role", user.getRole());
+    // 🆕 ADMIN: create user
+    @PostMapping
+    public User createUser(@RequestBody Map<String, String> body) {
 
-        return response;
+        String email = body.get("email");
+        String role  = body.getOrDefault("role", "USER");
+
+        return service.createUser(email, role);
     }
 }
