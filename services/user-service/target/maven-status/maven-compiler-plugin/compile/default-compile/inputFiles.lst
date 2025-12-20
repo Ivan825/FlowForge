@@ -4,4 +4,5 @@
 /Users/ivanbhargava/projects/FlowForge/services/user-service/src/main/java/com/flowforge/user/context/UserContextResolver.java
 /Users/ivanbhargava/projects/FlowForge/services/user-service/src/main/java/com/flowforge/user/controller/UserController.java
 /Users/ivanbhargava/projects/FlowForge/services/user-service/src/main/java/com/flowforge/user/security/InternalAuthFilter.java
+/Users/ivanbhargava/projects/FlowForge/services/user-service/src/main/java/com/flowforge/user/security/OrgInterceptor.java
 /Users/ivanbhargava/projects/FlowForge/services/user-service/src/main/java/com/flowforge/user/security/RoleInterceptor.java
