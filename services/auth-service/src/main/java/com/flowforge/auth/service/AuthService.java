@@ -2,6 +2,7 @@ package com.flowforge.auth.service;
 
 import com.flowforge.auth.dto.LoginRequest;
 import com.flowforge.auth.dto.RegisterRequest;
+import com.flowforge.auth.dto.RegisterUserRequest;
 import com.flowforge.auth.entity.Organization;
 import com.flowforge.auth.entity.UserCredentials;
 import com.flowforge.auth.repository.OrganizationRepository;
@@ -20,6 +21,7 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
 
+    // ✅ ADMIN REGISTRATION
     public void register(RegisterRequest request) {
 
         if (organizationRepository.existsByName(request.getOrganizationName())) {
@@ -42,6 +44,24 @@ public class AuthService {
         );
     }
 
+    // ✅ USER REGISTRATION (NEW — FIXED)
+    public void registerUser(RegisterUserRequest request) {
+
+        if (userRepository.existsByEmail(request.getEmail())) {
+            throw new RuntimeException("User already exists");
+        }
+
+        userRepository.save(
+                UserCredentials.builder()
+                        .email(request.getEmail())
+                        .passwordHash(passwordEncoder.encode(request.getPassword()))
+                        .organizationId(request.getOrganizationId())
+                        .roleId("USER")
+                        .build()
+        );
+    }
+
+    // ✅ LOGIN
     public String login(LoginRequest request) {
 
         UserCredentials user = userRepository.findByEmail(request.getEmail())
@@ -58,3 +78,4 @@ public class AuthService {
         );
     }
 }
+

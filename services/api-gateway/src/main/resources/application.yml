@@ -19,8 +19,7 @@ spring:
 # 🔐 JWT config (THIS WAS MISSING – ROOT CAUSE)
 jwt:
   secret: flowforge-super-secure-jwt-secret-256-bit-minimum-key!!
-
-
+  
 management:
   endpoints:
     web:

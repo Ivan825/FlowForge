@@ -5,8 +5,13 @@ com/flowforge/auth/controller/HealthController.class
 com/flowforge/auth/controller/AuthController.class
 com/flowforge/auth/entity/Organization$OrganizationBuilder.class
 com/flowforge/auth/repository/UserRepository.class
+com/flowforge/auth/security/JwtAuthenticationFilter.class
+com/flowforge/auth/dto/RegisterUserRequest.class
+com/flowforge/auth/dto/LoginResponse.class
 com/flowforge/auth/service/AuthService.class
 com/flowforge/auth/entity/UserCredentials$UserCredentialsBuilder.class
 com/flowforge/auth/repository/OrganizationRepository.class
+com/flowforge/auth/security/JwtUtil.class
 com/flowforge/auth/entity/Organization.class
+com/flowforge/auth/dto/LoginRequest.class
 com/flowforge/auth/config/SecurityConfig.class

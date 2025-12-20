@@ -1,33 +1,35 @@
 package com.flowforge.auth.security;
 
-import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
+import java.util.Date;
+import java.util.Map;
 
 @Component
 public class JwtUtil {
 
-    private final Key key = Keys.hmacShaKeyFor(
-            "very-secret-key-change-this-later-123456".getBytes()
-    );
+    private final Key key;
 
-    public String generateToken(String userId, String orgId, String roleId) {
-        return Jwts.builder()
-                .setSubject(userId)
-                .claim("orgId", orgId)
-                .claim("roleId", roleId)
-                .signWith(key)
-                .compact();
+    public JwtUtil(@Value("${jwt.secret}") String secret) {
+        this.key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
     }
 
-    public Claims validateToken(String token) {
-        return Jwts.parserBuilder()
-                .setSigningKey(key)
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
+    public String generateToken(String userId, String orgId, String roleId) {
+
+        return Jwts.builder()
+                .setSubject(userId)
+                .addClaims(Map.of(
+                        "orgId", orgId,
+                        "roleId", roleId
+                ))
+                .setIssuedAt(new Date())
+                .signWith(key, SignatureAlgorithm.HS256) // 🔥 MUST MATCH GATEWAY
+                .compact();
     }
 }
