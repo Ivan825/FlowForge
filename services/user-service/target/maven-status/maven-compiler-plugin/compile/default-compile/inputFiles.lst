@@ -2,8 +2,10 @@
 /Users/ivanbhargava/projects/FlowForge/services/user-service/src/main/java/com/flowforge/user/config/WebConfig.java
 /Users/ivanbhargava/projects/FlowForge/services/user-service/src/main/java/com/flowforge/user/context/UserContext.java
 /Users/ivanbhargava/projects/FlowForge/services/user-service/src/main/java/com/flowforge/user/context/UserContextResolver.java
+/Users/ivanbhargava/projects/FlowForge/services/user-service/src/main/java/com/flowforge/user/controller/CreateUserRequest.java
 /Users/ivanbhargava/projects/FlowForge/services/user-service/src/main/java/com/flowforge/user/controller/UserController.java
 /Users/ivanbhargava/projects/FlowForge/services/user-service/src/main/java/com/flowforge/user/entity/User.java
+/Users/ivanbhargava/projects/FlowForge/services/user-service/src/main/java/com/flowforge/user/exception/GlobalExceptionHandler.java
 /Users/ivanbhargava/projects/FlowForge/services/user-service/src/main/java/com/flowforge/user/repository/UserRepository.java
 /Users/ivanbhargava/projects/FlowForge/services/user-service/src/main/java/com/flowforge/user/security/InternalAuthFilter.java
 /Users/ivanbhargava/projects/FlowForge/services/user-service/src/main/java/com/flowforge/user/security/OrgContext.java

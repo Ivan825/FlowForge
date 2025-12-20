@@ -35,14 +35,13 @@ public class RoleInterceptor implements HandlerInterceptor {
 
         // 2️⃣ ADMIN-only endpoints
         boolean adminOnly =
-                path.equals("/users/me") ||
-                path.equals("/users");
+                path.equals("/users") && (method.equals("GET") || method.equals("POST"));
 
         if (adminOnly && !"ADMIN".equals(role)) {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
             return false;
         }
 
-        return true; // allow request
+        return true;
     }
 }

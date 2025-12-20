@@ -6,7 +6,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/users")
@@ -18,25 +17,24 @@ public class UserController {
         this.service = service;
     }
 
-    // Existing endpoint
+    // ✅ Current logged-in user (ADMIN or USER)
     @GetMapping("/me")
     public User me(HttpServletRequest request) {
         return service.getOrCreateUser(request);
     }
 
-    // 🆕 ADMIN: list users
+    // ✅ ADMIN: list users in org
     @GetMapping
     public List<User> listUsers() {
         return service.listUsers();
     }
 
-    // 🆕 ADMIN: create user
+    // ✅ ADMIN: create user in org
     @PostMapping
-    public User createUser(@RequestBody Map<String, String> body) {
-
-        String email = body.get("email");
-        String role  = body.getOrDefault("role", "USER");
-
-        return service.createUser(email, role);
+    public User createUser(@RequestBody CreateUserRequest body) {
+        return service.createUser(
+                body.getEmail(),
+                body.getRole() == null ? "USER" : body.getRole()
+        );
     }
 }

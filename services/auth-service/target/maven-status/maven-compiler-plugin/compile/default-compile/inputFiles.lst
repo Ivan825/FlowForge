@@ -8,6 +8,7 @@
 /Users/ivanbhargava/projects/FlowForge/services/auth-service/src/main/java/com/flowforge/auth/dto/RegisterUserRequest.java
 /Users/ivanbhargava/projects/FlowForge/services/auth-service/src/main/java/com/flowforge/auth/entity/Organization.java
 /Users/ivanbhargava/projects/FlowForge/services/auth-service/src/main/java/com/flowforge/auth/entity/UserCredentials.java
+/Users/ivanbhargava/projects/FlowForge/services/auth-service/src/main/java/com/flowforge/auth/exception/GlobalExceptionHandler.java
 /Users/ivanbhargava/projects/FlowForge/services/auth-service/src/main/java/com/flowforge/auth/repository/OrganizationRepository.java
 /Users/ivanbhargava/projects/FlowForge/services/auth-service/src/main/java/com/flowforge/auth/repository/UserRepository.java
 /Users/ivanbhargava/projects/FlowForge/services/auth-service/src/main/java/com/flowforge/auth/security/JwtAuthenticationFilter.java

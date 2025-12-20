@@ -1,9 +1,11 @@
 com/flowforge/user/security/OrgInterceptor.class
+com/flowforge/user/exception/GlobalExceptionHandler.class
 com/flowforge/user/controller/UserController.class
 com/flowforge/user/context/UserContextResolver.class
 com/flowforge/user/security/OrgContext.class
 com/flowforge/user/config/WebConfig.class
 com/flowforge/user/security/InternalAuthFilter.class
+com/flowforge/user/controller/CreateUserRequest.class
 com/flowforge/user/UserServiceApplication.class
 com/flowforge/user/security/RoleContext.class
 com/flowforge/user/context/UserContext.class
