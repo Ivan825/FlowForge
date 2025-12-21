@@ -13,13 +13,19 @@ public class TaskService {
 
     private final TaskRepository repository;
     private final TaskAccessValidator validator;
+    private final TaskActivityService activityService;
 
-    public TaskService(TaskRepository repository, TaskAccessValidator validator) {
+    public TaskService(
+            TaskRepository repository,
+            TaskAccessValidator validator,
+            TaskActivityService activityService
+    ) {
         this.repository = repository;
         this.validator = validator;
+        this.activityService = activityService;
     }
 
-    // CREATE
+    // ---------------- CREATE ----------------
     public Task createTask(
             String title,
             String description,
@@ -35,24 +41,36 @@ public class TaskService {
         task.setOrganizationId(orgId);
         task.setCreatedBy(createdBy);
 
-        return repository.save(task);
+        Task saved = repository.save(task);
+
+        // 🔹 ACTIVITY LOG
+        activityService.log(
+                saved.getId(),
+                orgId,
+                createdBy,
+                "CREATED",
+                "Task created"
+        );
+
+        return saved;
     }
 
-    // LIST (org scoped)
+    // ---------------- LIST (ORG SCOPED) ----------------
     public List<Task> listTasks(String orgId) {
         return repository.findByOrganizationId(orgId);
     }
 
-    // VIEW
+    // ---------------- VIEW ----------------
     public Task getTask(String taskId, String orgId) {
-        Task task = repository.findByIdAndOrganizationId(taskId, orgId)
+        Task task = repository
+                .findByIdAndOrganizationId(taskId, orgId)
                 .orElseThrow(() -> new RuntimeException("Task not found"));
 
         validator.assertCanView(task, orgId);
         return task;
     }
 
-    // UPDATE STATUS
+    // ---------------- UPDATE STATUS ----------------
     public Task updateStatus(
             String taskId,
             TaskStatus status,
@@ -64,10 +82,21 @@ public class TaskService {
         validator.assertCanUpdate(task, role, userId);
 
         task.setStatus(status);
-        return repository.save(task);
+        Task saved = repository.save(task);
+
+        // 🔹 ACTIVITY LOG
+        activityService.log(
+                saved.getId(),
+                orgId,
+                userId,
+                "STATUS_CHANGED",
+                "Status changed to " + status
+        );
+
+        return saved;
     }
 
-    // ASSIGN
+    // ---------------- ASSIGN ----------------
     public Task assignTask(
             String taskId,
             String assigneeId,
@@ -79,10 +108,22 @@ public class TaskService {
         Task task = getTask(taskId, orgId);
         task.setAssignedTo(assigneeId);
 
-        return repository.save(task);
+        Task saved = repository.save(task);
+
+        // 🔹 ACTIVITY LOG
+        activityService.log(
+                saved.getId(),
+                orgId,
+                "SYSTEM",
+                "ASSIGNED",
+                "Assigned to " + assigneeId
+        );
+
+        return saved;
     }
 
+    // ---------------- LIST ASSIGNED ----------------
     public List<Task> listAssignedTo(String userId) {
         return repository.findByAssignedTo(userId);
-}
+    }
 }
