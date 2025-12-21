@@ -1,0 +1,10 @@
+com/flowforge/task/config/WebConfig.class
+com/flowforge/task/TaskServiceApplication.class
+com/flowforge/task/repository/TaskRepository.class
+com/flowforge/task/security/TaskAccessValidator.class
+com/flowforge/task/exception/ForbiddenException.class
+com/flowforge/task/security/RoleInterceptor.class
+com/flowforge/task/entity/Task.class
+com/flowforge/task/entity/TaskStatus.class
+com/flowforge/task/controller/TaskController.class
+com/flowforge/task/service/TaskService.class

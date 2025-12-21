@@ -1,1 +1,10 @@
 /Users/ivanbhargava/projects/FlowForge/services/task-service/src/main/java/com/flowforge/task/TaskServiceApplication.java
+/Users/ivanbhargava/projects/FlowForge/services/task-service/src/main/java/com/flowforge/task/config/WebConfig.java
+/Users/ivanbhargava/projects/FlowForge/services/task-service/src/main/java/com/flowforge/task/controller/TaskController.java
+/Users/ivanbhargava/projects/FlowForge/services/task-service/src/main/java/com/flowforge/task/entity/Task.java
+/Users/ivanbhargava/projects/FlowForge/services/task-service/src/main/java/com/flowforge/task/entity/TaskStatus.java
+/Users/ivanbhargava/projects/FlowForge/services/task-service/src/main/java/com/flowforge/task/exception/ForbiddenException.java
+/Users/ivanbhargava/projects/FlowForge/services/task-service/src/main/java/com/flowforge/task/repository/TaskRepository.java
+/Users/ivanbhargava/projects/FlowForge/services/task-service/src/main/java/com/flowforge/task/security/RoleInterceptor.java
+/Users/ivanbhargava/projects/FlowForge/services/task-service/src/main/java/com/flowforge/task/security/TaskAccessValidator.java
+/Users/ivanbhargava/projects/FlowForge/services/task-service/src/main/java/com/flowforge/task/service/TaskService.java
